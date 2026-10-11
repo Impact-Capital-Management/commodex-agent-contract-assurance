@@ -22,7 +22,7 @@ deployment, it cannot approve one alone — the human lead signs off.
 
 | Contract | Review | Result |
 |---|---|---|
-| CommodexAnchor v0 | [reviews/2026-10-11-commodex-anchor-v0.md](reviews/2026-10-11-commodex-anchor-v0.md) | no blocking finding; human sign-off pending |
+| CommodexAnchor v0 | [reviews/2026-10-11-commodex-anchor-v0.md](reviews/2026-10-11-commodex-anchor-v0.md) | no blocking finding; deployed on Fuji 11 Oct 2026 at 0xe274C452dFb0D259FA413EEd3a830197a4Fd50ef, deployed bytecode = reviewed source (explorer-verified) |
 | CommodexEscrow v0 | not started (contract not written) | — |
 
 ## License
