@@ -19,12 +19,12 @@ Contract assurance agent for the Commodex Avalanche C-Chain setup. Commodex: htt
 This unit does not write the contracts it reviews. A deployment needs its written review; it can hold a
 deployment, it cannot approve one alone — the human lead signs off.
 
-## Status — 14 October 2026
+## Status — 1 November 2026
 
 | Contract | Review | Result |
 |---|---|---|
 | CommodexAnchor v0 | [reviews/2026-10-11-commodex-anchor-v0.md](reviews/2026-10-11-commodex-anchor-v0.md) | no blocking finding; deployed on Fuji 11 Oct 2026 at 0xe274C452dFb0D259FA413EEd3a830197a4Fd50ef, deployed bytecode = reviewed source (explorer-verified) |
-| CommodexEscrow v0 | not started (contract not written) | — |
+| CommodexEscrow v2 | [reviews/2026-11-01-commodex-escrow-v2.md](reviews/2026-11-01-commodex-escrow-v2.md) | no blocking finding for Fuji; deployed 1 Nov 2026 at 0xe453ebae20f06d53c44946b15A35E0e790A3089e on Circle Fuji USDC, deployed bytecode = reviewed source (explorer-verified, 11/11 checks); two findings block any mainnet use |
 
 ## Commands
 
@@ -60,11 +60,40 @@ PASS  operator() is the Commodex server wallet  0x215edfa8c9db88a972fbedb810b884
 10/10 checks passed
 ```
 
-Run the contract's own tests (in-memory chain, no Fuji funds):
+Re-check the escrow deployment the same way:
+
+```bash
+node checks/verify-fuji-escrow.mjs
+```
+
+[`checks/verify-fuji-escrow.mjs`](checks/verify-fuji-escrow.mjs) downloads
+[`fuji-escrow.json`](https://github.com/Impact-Capital-Management/commodex-agent-avalanche-contracts/blob/main/evidence/fuji-escrow.json)
+and the published build, then checks that the deploy transaction's input is exactly that bytecode plus the
+constructor arguments, and that the live contract returns the agreed settings.
+
+Output on 1 November 2026:
+
+```text
+PASS  RPC answers Avalanche Fuji  chain id 43113
+PASS  escrow code exists on Fuji  6160 bytes
+PASS  deploy-escrow (0xa97409ec…)  block 60366934
+PASS  deploy input = published bytecode + constructor arguments  6718 bytes
+PASS  token() is Circle Fuji USDC  0x5425890298aed601595a70ab815c96711a31bc65
+PASS  operator() is the Commodex server wallet  0x215edfa8c9db88a972fbedb810b884ade94fca7b
+PASS  feeBps() is 0
+PASS  MAX_FEE_BPS() is 300 (3%)
+PASS  DEFAULT_WINDOW() is 7 days
+PASS  OPERATOR_GRACE() is 30 days
+PASS  paused() is false
+
+11/11 checks passed
+```
+
+Run the contracts' own tests (in-memory chain, no Fuji funds):
 
 ```bash
 git clone https://github.com/Impact-Capital-Management/commodex-agent-avalanche-contracts
-cd commodex-agent-avalanche-contracts && npm install && npm test     # 7 checks
+cd commodex-agent-avalanche-contracts && npm install && npm run test:all     # anchor 7 + escrow 16
 ```
 
 ## License
