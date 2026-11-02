@@ -71,7 +71,7 @@ node checks/verify-fuji-escrow.mjs
 and the published build, then checks that the deploy transaction's input is exactly that bytecode plus the
 constructor arguments, and that the live contract returns the agreed settings.
 
-Output on 1 November 2026:
+Output on 2 November 2026 (after the first trade):
 
 ```text
 PASS  RPC answers Avalanche Fuji  chain id 43113
@@ -85,8 +85,11 @@ PASS  MAX_FEE_BPS() is 300 (3%)
 PASS  DEFAULT_WINDOW() is 7 days
 PASS  OPERATOR_GRACE() is 30 days
 PASS  paused() is false
+PASS  demo-approve (0x4b09b230…)  block 60383091
+PASS  demo-fund (0x68fe1c6f…)  block 60383092
+PASS  demo-release-by-buyer (0xa69f0867…)  block 60383096
 
-11/11 checks passed
+14/14 checks passed
 ```
 
 Run the contracts' own tests (in-memory chain, no Fuji funds):
